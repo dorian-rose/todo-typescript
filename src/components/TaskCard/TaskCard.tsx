@@ -9,12 +9,13 @@ import classNames from "classnames";
 import { PropsType } from "./TaskCard.types";
 
 export function TaskCard(props: PropsType) {
-  const { task, openInfo, onDeleteTask } = props;
+  const { task, openInfo, onDeleteTask, onUpdateTask } = props;
 
   const onOpen = () => openInfo(task);
 
   const onDelete = () => onDeleteTask(task.id);
 
+  const onUpdate = () => onUpdateTask(task);
   return (
     <article className="relative justify-center bg-tertiary m-2 sm:m-4  pb-16  shadow">
       <header
@@ -55,7 +56,10 @@ export function TaskCard(props: PropsType) {
           </button>
         )}
         <div className="flex justify-around">
-          <button className="mx-4 text-primary text-xl p-1 shadow-xl rounded-full border ">
+          <button
+            onClick={onUpdate}
+            className="mx-4 text-primary text-xl p-1 shadow-xl rounded-full border "
+          >
             <MdOutlineEditNote />
           </button>
           <button
