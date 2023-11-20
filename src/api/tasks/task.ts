@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { filter } from "lodash";
 import { TaskTypes } from "./tasks.types";
 import { ITask } from "../../models";
 
@@ -23,5 +24,14 @@ export class Task {
     const data = localStorage.getItem(TASKS);
     if (!data) return [];
     return JSON.parse(data);
+  }
+
+  delete(id: string): Array<ITask> {
+    const tasks = this.obtain();
+    const result = filter(tasks, (task) => {
+      return task.id !== id;
+    });
+    localStorage.setItem(TASKS, JSON.stringify(result));
+    return result;
   }
 }

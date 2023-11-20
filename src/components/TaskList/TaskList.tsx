@@ -24,10 +24,22 @@ export function TaskList() {
 
   if (size(tasks) < size(items)) setTasks(items);
 
+  const onDeleteTask = (id: string) => {
+    const response = task.delete(id);
+    setTasks(response);
+  };
+
   const renderTasks = (completed: boolean) => {
     return map(tasks, (task) => {
       if (task.completed === completed) {
-        return <TaskCard key={task.id} task={task} openInfo={moreInfo} />;
+        return (
+          <TaskCard
+            key={task.id}
+            task={task}
+            openInfo={moreInfo}
+            onDeleteTask={onDeleteTask}
+          />
+        );
       }
     });
   };
