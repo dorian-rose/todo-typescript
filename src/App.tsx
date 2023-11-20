@@ -16,7 +16,7 @@ export default function App() {
         title="Tarea Nueva"
         children={<NewTaskForm close={openCloseModal} />}
       />
-      {/* <NewTaskForm /> */}
+     
     </div>
   );
 }
