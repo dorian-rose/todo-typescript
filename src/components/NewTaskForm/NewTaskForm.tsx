@@ -28,20 +28,14 @@ export function NewTaskForm(props: PropTypes) {
     close();
   };
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="bg-tertiary  m-2 border border-primary shadow-lg rounded-xl z-20 pb-4  "
-    >
-      <h2 className="mt-5 text-primary text-lg text-center sm:text-xl">
-        Nueva Tarea
-      </h2>
+    <form className="rounded-3xl p-2 " onSubmit={handleSubmit(onSubmit)}>
       <input
         {...register("title", { required: "Título es requerido" })}
         type="text"
         placeholder="Título de la tarea"
         // className="font-light mt-2 w-10/12 m-auto block border border-1 rounded-3xl px-4 py-2 focus:outline-none focus:border-primary "
         className={classNames(
-          "font-light mt-2 w-10/12 m-auto block border border-1 rounded-3xl px-4 py-2 focus:outline-none focus:border-primary",
+          "shadow-inner font-light pt-2 w-10/12 m-auto block border border-1 rounded-3xl px-4 py-2 focus:outline-none focus:border-primary",
           { "focus:border-alert border-alert bg-red-100": errors.title }
         )}
       />
@@ -51,7 +45,7 @@ export function NewTaskForm(props: PropTypes) {
       <textarea
         {...register("description")}
         placeholder="Descripción de la tarea"
-        className="font-light mt-2 w-10/12 m-auto block border border-1 rounded-3xl px-4 py-2 focus:outline-none focus:border-primary "
+        className="shadow-inner font-light mt-2 w-10/12 m-auto block border border-1 rounded-3xl px-4 py-2 focus:outline-none focus:border-primary "
       />
 
       <button

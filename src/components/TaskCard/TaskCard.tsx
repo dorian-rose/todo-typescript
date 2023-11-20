@@ -9,7 +9,10 @@ import classNames from "classnames";
 import { PropsType } from "./TaskCard.types";
 
 export function TaskCard(props: PropsType) {
-  const { task } = props;
+  const { task, openInfo } = props;
+
+  const onOpen = () => openInfo(task);
+
   return (
     <article className="relative justify-center bg-tertiary m-2 sm:m-4  pb-16  shadow">
       <header
@@ -32,7 +35,10 @@ export function TaskCard(props: PropsType) {
         </p>
       </header>
 
-      <p className="h-14  overflow-hidden text-ellipsis inline-block px-4 py-2">
+      <p
+        onClick={onOpen}
+        className="h-14  overflow-hidden text-ellipsis inline-block px-4 py-2"
+      >
         {task.description}
       </p>
 

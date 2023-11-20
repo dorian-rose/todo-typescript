@@ -3,8 +3,8 @@ import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import classNames from "classnames";
 import { map, size } from "lodash";
 import { Task } from "../../api";
-import { TaskCard } from "../TaskCard";
-import { BasicModal } from "../BasicModal";
+import { ITask } from "../../models";
+import { BasicModal, TaskCard } from "..";
 
 const task = new Task();
 
@@ -12,13 +12,22 @@ export function TaskList() {
   const items = task.obtain();
   const [tasks, setTasks] = useState(items);
   const [expanded, setExpanded] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalInfo, setModaLInfo] = useState<any>({});
+
+  const openCloseModal = () => setShowModal(!showModal);
+
+  const moreInfo = (task: ITask) => {
+    setModaLInfo({ title: task.title, children: task.description });
+    openCloseModal();
+  };
 
   if (size(tasks) < size(items)) setTasks(items);
 
   const renderTasks = (completed: boolean) => {
     return map(tasks, (task) => {
       if (task.completed === completed) {
-        return <TaskCard key={task.id} task={task} />;
+        return <TaskCard key={task.id} task={task} openInfo={moreInfo} />;
       }
     });
   };
@@ -59,6 +68,13 @@ export function TaskList() {
           {renderTasks(true)}
         </div>
       </section>
+      <BasicModal
+        show={showModal}
+        close={openCloseModal}
+        title={modalInfo?.title || ""}
+        children={modalInfo.children}
+        // children={<NewTaskForm close={openCloseModal} />}
+      />
     </>
   );
 }
