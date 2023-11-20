@@ -34,4 +34,17 @@ export class Task {
     localStorage.setItem(TASKS, JSON.stringify(result));
     return result;
   }
+
+  update(task: ITask) {
+    const tasks = this.obtain();
+
+    const result = filter(tasks, (item) => {
+      if (item.id === task.id) {
+        item.title = task.title;
+        item.description = task.description;
+      }
+      return tasks;
+    });
+    localStorage.setItem(TASKS, JSON.stringify(result));
+  }
 }

@@ -19,7 +19,7 @@ export function NavBar(props: PropsTypes) {
             rounded-full text-white bg-primary border border-4 border-tertiary hover:border  hover:border-secondary hover:bg-tertiary hover:text-secondary "
         onClick={openCloseModal}
       >
-        Add task
+        Crear tarea
       </button>
     </nav>
   );
