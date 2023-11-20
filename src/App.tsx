@@ -13,7 +13,7 @@ export default function App() {
       <BasicModal
         show={showModal}
         close={openCloseModal}
-        title="New Tarea"
+        title="Tarea Nueva"
         children={<NewTaskForm close={openCloseModal} />}
       />
       {/* <NewTaskForm /> */}

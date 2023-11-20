@@ -1,18 +1,64 @@
 import { useState } from "react";
-import { map } from "lodash";
+import { MdExpandLess, MdExpandMore } from "react-icons/md";
+import classNames from "classnames";
+import { map, size } from "lodash";
 import { Task } from "../../api";
 import { TaskCard } from "../TaskCard";
+import { BasicModal } from "../BasicModal";
 
 const task = new Task();
 
 export function TaskList() {
   const items = task.obtain();
   const [tasks, setTasks] = useState(items);
+  const [expanded, setExpanded] = useState(false);
+
+  if (size(tasks) < size(items)) setTasks(items);
+
+  const renderTasks = (completed: boolean) => {
+    return map(tasks, (task) => {
+      if (task.completed === completed) {
+        return <TaskCard key={task.id} task={task} />;
+      }
+    });
+  };
   return (
-    <section className="mx-6 my-6 sm:my-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {map(tasks, (task) => (
-        <TaskCard key={task.id} task={task} />
-      ))}
-    </section>
+    <>
+      <section className="mx-6 my-3 sm:my-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {renderTasks(false)}
+      </section>
+      <section className="m-2 shadow">
+        <header className="px-10 border border-2 flex justify-between bg-tertiary ">
+          <h2 className="tracking-widest italic text-gray-400">
+            Tareas completadas
+          </h2>
+          {expanded ? (
+            <button
+              className="text-gray-400 text-2xl px-0.5 shadow-xl rounded-full border "
+              onClick={() => setExpanded(false)}
+            >
+              <MdExpandMore />
+            </button>
+          ) : (
+            <button
+              className="text-gray-400 text-2xl px-0.5 shadow-xl rounded-full border "
+              onClick={() => setExpanded(true)}
+            >
+              <MdExpandLess />
+            </button>
+          )}
+        </header>
+        <div
+          className={classNames(
+            "mx-6 my-3 sm:my-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
+            {
+              hidden: !expanded,
+            }
+          )}
+        >
+          {renderTasks(true)}
+        </div>
+      </section>
+    </>
   );
 }
