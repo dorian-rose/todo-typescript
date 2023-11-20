@@ -9,9 +9,11 @@ import classNames from "classnames";
 import { PropsType } from "./TaskCard.types";
 
 export function TaskCard(props: PropsType) {
-  const { task, openInfo } = props;
+  const { task, openInfo, onDeleteTask } = props;
 
   const onOpen = () => openInfo(task);
+
+  const onDelete = () => onDeleteTask(task.id);
 
   return (
     <article className="relative justify-center bg-tertiary m-2 sm:m-4  pb-16  shadow">
@@ -56,7 +58,10 @@ export function TaskCard(props: PropsType) {
           <button className="mx-4 text-primary text-xl p-1 shadow-xl rounded-full border ">
             <MdOutlineEditNote />
           </button>
-          <button className="mx-4 text-alert text-xl p-1 shadow-xl rounded-full border ">
+          <button
+            onClick={onDelete}
+            className="mx-4 text-alert text-xl p-1 shadow-xl rounded-full border "
+          >
             <MdDelete />
           </button>
         </div>
