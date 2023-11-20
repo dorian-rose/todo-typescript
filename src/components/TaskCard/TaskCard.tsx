@@ -15,8 +15,8 @@ export function TaskCard(props: PropsType) {
       </header>
       <body>
         <p>{task.description}</p>
-      </body>{" "}
-      <footer className="flex justify-center my-4 absolute bottom-0 left-1/2 -translate-x-1/2">
+      </body>
+      <footer className="flex justify-between my-4 absolute bottom-0 left-1/2 -translate-x-1/2 w-full">
         {task.completed ? (
           <button className="mx-4 text-green-500 text-xl p-1 shadow-xl rounded-full border ">
             <MdCheckCircle />
@@ -26,12 +26,14 @@ export function TaskCard(props: PropsType) {
             <MdOutlineCircle />
           </button>
         )}
-        <button className="mx-4 text-primary text-xl p-1 shadow-xl rounded-full border ">
-          <MdOutlineEditNote />
-        </button>
-        <button className="mx-4 text-alert text-xl p-1 shadow-xl rounded-full border ">
-          <MdDelete />
-        </button>
+        <div className="flex justify-around">
+          <button className="mx-4 text-primary text-xl p-1 shadow-xl rounded-full border ">
+            <MdOutlineEditNote />
+          </button>
+          <button className="mx-4 text-alert text-xl p-1 shadow-xl rounded-full border ">
+            <MdDelete />
+          </button>
+        </div>
       </footer>
     </article>
   );
