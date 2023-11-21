@@ -18,7 +18,7 @@ export function TaskList() {
 
   useEffect(() => {
     setTasks(items);
-  }, [reload]);
+  }, [items, reload]);
 
   //function to open or close modal
   const openCloseModal = () => setShowModal(!showModal);
@@ -58,6 +58,12 @@ export function TaskList() {
     openCloseModal();
   };
 
+  const onCompleteTask = (data: ITask) => {
+    const newData = data;
+    newData.completed = !data.completed;
+    task.update(newData);
+    onReloadTasks();
+  };
   //reusable code for rendering task cards
   const renderTasks = (completed: boolean) => {
     return map(tasks, (task) => {
@@ -69,6 +75,7 @@ export function TaskList() {
             openInfo={moreInfo}
             onDeleteTask={onDeleteTask}
             onUpdateTask={onUpdateTask}
+            onCompleteTask={onCompleteTask}
           />
         );
       }
@@ -76,33 +83,35 @@ export function TaskList() {
   };
   return (
     <>
-      <section className="mx-6 my-3 sm:my-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <section className="mx-6 my-3 sm:my-6 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3  lg:grid-cols-4">
         {renderTasks(false)}
       </section>
       <section className="m-2 pb-4 border border-2 shadow">
         <header className="px-10 border border-b flex justify-between bg-tertiary ">
           <h2 className="tracking-widest italic text-gray-400 pt-1.5">
-            Ver tareas completadas
+            {expanded
+              ? "Esconder tareas completadas"
+              : "Ver tareas completadas"}
           </h2>
           {expanded ? (
             <button
               className="relative top-2 text-gray-400 text-3xl p-1 bg-white shadow-xl rounded-full border "
               onClick={() => setExpanded(false)}
             >
-              <MdExpandMore />
+              <MdExpandLess />
             </button>
           ) : (
             <button
               className="relative top-2 text-gray-400 text-3xl p-1 bg-white shadow-xl rounded-full border  "
               onClick={() => setExpanded(true)}
             >
-              <MdExpandLess />
+              <MdExpandMore />
             </button>
           )}
         </header>
         <div
           className={classNames(
-            "mx-6 my-3 sm:my-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
+            "mx-6 my-3 sm:my-6 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3  lg:grid-cols-4",
             {
               hidden: !expanded,
             }

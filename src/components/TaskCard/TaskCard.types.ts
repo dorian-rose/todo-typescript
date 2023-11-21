@@ -5,4 +5,5 @@ export type PropsType = {
   openInfo: (task: ITask) => void;
   onDeleteTask: (id: string) => void;
   onUpdateTask: (task: ITask) => void;
+  onCompleteTask: (data: ITask) => void;
 };
