@@ -18,7 +18,7 @@ export function TaskList() {
 
   useEffect(() => {
     setTasks(items);
-  }, [items, reload]);
+  }, [reload]);
 
   //function to open or close modal
   const openCloseModal = () => setShowModal(!showModal);
@@ -64,6 +64,27 @@ export function TaskList() {
     task.update(newData);
     onReloadTasks();
   };
+
+  //updates task
+  const showNewTaskForm = () => {
+    setModaLInfo({
+      title: "Nueva tarea",
+      children: (
+        <NewTaskForm
+          close={() => {
+            onReloadTasks();
+            setShowModal(false);
+          }}
+        />
+      ),
+    });
+    openCloseModal();
+  };
+
+  //find number of pending/complete tasks
+  const pendingTasks = tasks.filter((task) => !task.completed);
+  const completedTasks = tasks.filter((task) => task.completed);
+
   //reusable code for rendering task cards
   const renderTasks = (completed: boolean) => {
     return map(tasks, (task) => {
@@ -81,10 +102,35 @@ export function TaskList() {
       }
     });
   };
+
   return (
     <>
       <section className="mx-6 my-3 sm:my-6 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3  lg:grid-cols-4">
         {renderTasks(false)}
+        {pendingTasks.length === 0 && (
+          <div className="col-span-full">
+            <p className="text-secondary">
+              No hay tareas pendientes.
+              <span
+                className="mx-2 underline hover:text-primary"
+                onClick={() => showNewTaskForm()}
+              >
+                Crear una nueva
+              </span>
+              {completedTasks.length !== 0 && (
+                <>
+                  o
+                  <span
+                    className="mx-2 underline hover:text-primary"
+                    onClick={() => setExpanded(!expanded)}
+                  >
+                    ver tareas completadas
+                  </span>
+                </>
+              )}
+            </p>
+          </div>
+        )}
       </section>
       <section className="m-2 pb-4 border border-2 shadow">
         <header className="px-10 border border-b flex justify-between bg-tertiary ">
@@ -118,6 +164,13 @@ export function TaskList() {
           )}
         >
           {renderTasks(true)}
+          {completedTasks.length === 0 && (
+            <div className="col-span-full">
+              <p className="text-secondary">
+                Todavía no tienes tareas completadas.
+              </p>
+            </div>
+          )}
         </div>
       </section>
       <BasicModal
