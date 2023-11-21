@@ -6,7 +6,7 @@ import { ITask } from "../../models";
 const TASKS = "tasks";
 
 export class Task {
-  constructor() {}
+  //constructor() {}
   create(params: TaskTypes.Create) {
     const newData: ITask = {
       id: uuidv4(),
