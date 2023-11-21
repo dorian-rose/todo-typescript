@@ -16,9 +16,8 @@ export function TaskList() {
   const [modalInfo, setModaLInfo] = useState<any>({});
   const [reload, setReload] = useState(false);
 
-  useEffect(() => {
-    setTasks(items);
-  }, [reload]);
+  // useEffect(() => setTasks(items), [reload]);
+  useEffect(() => setTasks((prevItems) => task.obtain()), [reload]);
 
   //function to open or close modal
   const openCloseModal = () => setShowModal(!showModal);
