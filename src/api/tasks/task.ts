@@ -42,6 +42,7 @@ export class Task {
       if (item.id === task.id) {
         item.title = task.title;
         item.description = task.description;
+        item.completed = task.completed;
       }
       return tasks;
     });

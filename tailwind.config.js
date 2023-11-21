@@ -7,11 +7,16 @@ module.exports = {
         'primary': '#DFBD43',
         'secondary': '#4C4117',
         'tertiary': '#F9FCF5',
-
         'alert': '#781313',
 
       }
     },
+    screens: {
+      'xs': '480px',
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px'
+    }
   },
   plugins: [],
 }
